@@ -1,0 +1,3 @@
+[submodule "lib/vendor/newrelic"]
+	path = lib/vendor/newrelic
+	url = https://github.com/Wirehive/newrelic-partner-api.git
