@@ -119,6 +119,8 @@ class sfNewRelicAPI
    * Set logging on or off
    *
    * @param $state
+   *
+   * @return sfNewRelicAPI
    */
   public function setLogging($state)
   {
@@ -131,7 +133,7 @@ class sfNewRelicAPI
   /**
    * Convenience method for enabling logging
    *
-   * @return sfNewRelic
+   * @return sfNewRelicAPI
    */
   public function enableLogging()
   {
@@ -144,7 +146,7 @@ class sfNewRelicAPI
   /**
    * Convenience method for disabling logging
    *
-   * @return sfNewRelic
+   * @return sfNewRelicAPI
    */
   public function disableLogging()
   {
@@ -161,6 +163,7 @@ class sfNewRelicAPI
    * @param $method
    * @param $args
    * @param $result
+   * @param $url
    */
   protected function log($api_class, $method, $args, $result, $url)
   {
