@@ -68,7 +68,14 @@ class sfNewRelicAPI
 
     if (method_exists($api, $method))
     {
-      return call_user_func_array(array($api, $method), $args);
+      $result = call_user_func_array(array($api, $method), $args);
+
+      if ($this->getLogging())
+      {
+        $this->log(get_class($api), $method, $args, $result, $api->get);
+      }
+
+      return $result;
     }
 
     throw new sfNewRelicAPIMethodNotFoundException(
@@ -144,5 +151,25 @@ class sfNewRelicAPI
     $this->setLogging(false);
 
     return $this;
+  }
+
+
+  /**
+   * Log API call to the database
+   *
+   * @param $api_class
+   * @param $method
+   * @param $args
+   * @param $result
+   */
+  protected function log($api_class, $method, $args, $result, $url)
+  {
+    $log = new NewRelicLog();
+    $log->setApi($api_class);
+    $log->setMethod($method);
+    $log->setContentSent(json_encode($args));
+    $log->setContentReceived(json_encode($result));
+    $log->setUrl($url);
+    $log->save();
   }
 }
