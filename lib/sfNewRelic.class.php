@@ -1,6 +1,15 @@
 <?php
 
 
+/**
+ * Class sfNewRelicAPI
+ *
+ * A Symfony 1.4 wrapper to the New Relic API libraries.
+ * Currently only supports the Partner v2 API library as provided.
+ *
+ * @author Robin Corps <robin@wirehive.net>
+ * @version 0.1
+ */
 class sfNewRelicAPI
 {
   const PARTNER_API = 1;
@@ -12,19 +21,17 @@ class sfNewRelicAPI
   private $api;
 
 
-  public function __construct($type, $mode = self::LIVE, $logging = true)
+  public function __construct($type, $mode = null, $logging = true)
   {
     switch ($mode)
     {
       case self::STAGING:
-        $partner_id = sfConfig::get('app_newrelic_staging_partner_id');
-        $api_key    = sfConfig::get('app_newrelic_staging_api_key');
+        $config = sfConfig::get('app_newrelic_staging');
         break;
 
       default:
       case self::LIVE:
-        $partner_id = sfConfig::get('app_newrelic_live_partner_id');
-        $api_key    = sfConfig::get('app_newrelic_live_api_key');
+        $config = sfConfig::get('app_newrelic_live');
         break;
     }
 
@@ -32,7 +39,7 @@ class sfNewRelicAPI
     {
       default:
       case self::PARTNER_API:
-        $api = new NewRelicPartnerAPI($partner_id, $api_key, $mode);
+        $api = new NewRelicPartnerAPI($config['partner_id'], $config['api_key'], $mode);
         $this->setApi($api);
         break;
     }
@@ -43,6 +50,32 @@ class sfNewRelicAPI
     {
       $api->setCurlOpt(CURLOPT_VERBOSE, 1);
     }
+  }
+
+
+  /**
+   * Magic method to call functions on the wrapper API library
+   *
+   * @param $method
+   * @param $args
+   *
+   * @return mixed
+   * @throws sfNewRelicAPIMethodNotFoundException
+   */
+  public function __call($method, $args)
+  {
+    $api = $this->getApi();
+
+    if (method_exists($api, $method))
+    {
+      return call_user_func_array(array($api, $method), $args);
+    }
+
+    throw new sfNewRelicAPIMethodNotFoundException(
+      'The method "' . $method . '" does not exist for the API ' . get_class($api),
+      $method,
+      $api
+    );
   }
 
 
