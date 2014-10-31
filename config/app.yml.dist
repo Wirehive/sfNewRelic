@@ -1,10 +1,10 @@
 all:
   newrelic:
+    mode:           2 # 2 => live, 1 => staging
+    logging:        true
     live:
-      api_key:            aaaaaaaaaa #api key located in partnership settings
-      partner_id:         0 #newrelic partnership_id
-      partner_name:       'companyname' #partnership name, MUST match new relic
+      api_key:      aaaaaaaaaa #api key located in partnership settings
+      partner_id:   0 #newrelic partnership_id
     staging:
-      api_key:            bbbbbbbbbb #api key located in partnership settings
-      partner_id:         0 #newrelic partnership_id
-      partner_name:       'companyname staging' #partnership name, MUST match new relic
+      api_key:      bbbbbbbbbb #api key located in partnership settings
+      partner_id:   0 #newrelic partnership_id

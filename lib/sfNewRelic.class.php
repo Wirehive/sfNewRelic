@@ -21,8 +21,18 @@ class sfNewRelicAPI
   private $api;
 
 
-  public function __construct($type, $mode = null, $logging = true)
+  public function __construct($type, $mode = null, $logging = null)
   {
+    if ($mode === null)
+    {
+      $mode = sfConfig::get('app_newrelic_mode', self::LIVE);
+    }
+
+    if ($logging === null)
+    {
+      $logging = sfConfig::get('app_newrelic_logging', true);
+    }
+
     switch ($mode)
     {
       case self::STAGING:
