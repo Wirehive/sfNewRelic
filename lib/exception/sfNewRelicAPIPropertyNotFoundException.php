@@ -2,25 +2,25 @@
 
 
 /**
- * Class sfNewRelicAPIMethodNotFoundException
+ * Class sfNewRelicAPIPropertyNotFoundException
  *
  * Handle method not found exceptions
  *
  * @author Robin Corps <robin@wirehive.net>
  */
-class sfNewRelicAPIMethodNotFoundException extends sfException
+class sfNewRelicAPIPropertyNotFoundException extends sfException
 {
   protected $api;
-  protected $method;
+  protected $property;
 
 
-  public function __construct($message, $method, $api)
+  public function __construct($message, $property, $api)
   {
     parent::__construct($message, 501);
 
     $this->setApi($api);
 
-    $this->setMethod($method);
+    $this->setProperty($property);
   }
 
 
@@ -45,18 +45,18 @@ class sfNewRelicAPIMethodNotFoundException extends sfException
   /**
    * @return mixed
    */
-  public function getMethod()
+  public function getProperty()
   {
-    return $this->method;
+    return $this->property;
   }
 
 
   /**
    * @param mixed $method
    */
-  public function setMethod($method)
+  public function setProperty($property)
   {
-    $this->method = $method;
+    $this->property = $property;
   }
 
 

@@ -54,7 +54,7 @@ class sfNewRelicAPI
 
 
   /**
-   * Magic method to call functions on the wrapper API library
+   * Magic method to call functions on the wrapped API library
    *
    * @param $method
    * @param $args
@@ -81,6 +81,36 @@ class sfNewRelicAPI
     throw new sfNewRelicAPIMethodNotFoundException(
       'The method "' . $method . '" does not exist for the API ' . get_class($api),
       $method,
+      $api
+    );
+  }
+
+
+  /**
+   * Magic method to call property on this class or the wrapped API library
+   *
+   * @param $prop
+   *
+   * @return mixed
+   * @throws sfNewRelicAPIPropertyNotFoundException
+   */
+  public function __get($prop)
+  {
+    if (property_exists($this, $prop))
+    {
+      return $this->$prop;
+    }
+
+    $api = $this->getApi();
+
+    if (property_exists($api, $prop))
+    {
+      return $api->$prop;
+    }
+
+    throw new sfNewRelicAPIPropertyNotFoundException(
+      'The property "' . $prop . '" does not exist for the API ' . get_class($api),
+      $prop,
       $api
     );
   }
