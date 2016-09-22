@@ -7,7 +7,7 @@
  * A Symfony 1.4 wrapper to the New Relic API libraries.
  * Currently only supports the Partner v2 API library as provided.
  *
- * @author Robin Corps <robin@wirehive.net>
+ * @author Robin Corps <robin.corps@wirehive.com>
  * @version 0.1
  */
 class sfNewRelicAPI

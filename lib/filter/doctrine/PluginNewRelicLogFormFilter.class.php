@@ -5,7 +5,7 @@
  *
  * @package    sfNewRelicPlugin
  * @subpackage filter
- * @author     Robin Corps <robin@wirehive.net>
+ * @author     Robin Corps <robin.corps@wirehive.com>
  * @version    SVN: $Id: sfDoctrineFormFilterPluginTemplate.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
  */
 abstract class PluginNewRelicLogFormFilter extends BaseNewRelicLogFormFilter

@@ -6,7 +6,7 @@
  *
  * Handle method not found exceptions
  *
- * @author Robin Corps <robin@wirehive.net>
+ * @author Robin Corps <robin.corps@wirehive.com>
  */
 class sfNewRelicAPIPropertyNotFoundException extends sfException
 {
